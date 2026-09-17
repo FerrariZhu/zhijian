@@ -1,0 +1,97 @@
+:root,
+page {
+  --brand: #e9271c;
+  --brand-pressed: #c91f18;
+  --brand-tint: #fdeceb;
+  --text-primary: #222222;
+  --text-secondary: #6f6f6f;
+  --text-tertiary: #a6a6a6;
+  --surface: #ffffff;
+  --surface-subtle: #f7f7f7;
+  --surface-pressed: #f2f2f2;
+  --border: #eeeeee;
+  --font-ui: "PingFang SC", "Noto Sans CJK SC", "Microsoft YaHei", sans-serif;
+  --font-reading: "Songti SC", STSong, "Noto Serif CJK SC", serif;
+  color: var(--text-primary);
+  background: var(--surface);
+  font-family: var(--font-ui);
+  font-size: 28px;
+  box-sizing: border-box;
+}
+
+view,
+text,
+image,
+scroll-view,
+input,
+textarea,
+button {
+  box-sizing: border-box;
+}
+
+button {
+  font-family: inherit;
+}
+
+button::after {
+  border: 0;
+}
+
+.safe-page {
+  min-height: 100vh;
+  background: var(--surface);
+}
+
+.section-heading {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin: 0;
+  font-size: 36px;
+  line-height: 50px;
+  font-weight: 600;
+}
+
+.section-heading::before {
+  content: "";
+  width: 6px;
+  height: 32px;
+  border-radius: 2px;
+  background: var(--brand);
+}
+
+.muted {
+  color: var(--text-secondary);
+}
+
+.hairline {
+  height: 1px;
+  background: var(--border);
+}
+
+.pressable {
+  transition: opacity 120ms ease, background-color 120ms ease;
+}
+
+.pressable:active {
+  opacity: 0.72;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .pressable {
+    transition: none;
+  }
+}
+
+@media screen and (min-width: 768px) {
+  #app,
+  .taro_page {
+    max-width: 900px;
+    margin: 0 auto;
+    background: var(--surface);
+  }
+
+  body {
+    background: #f2f2f2;
+  }
+}

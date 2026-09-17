@@ -1,0 +1,14 @@
+export default defineAppConfig({
+  pages: [
+    'pages/home/index',
+    'pages/detail/index',
+    'pages/submit/index'
+  ],
+  window: {
+    backgroundTextStyle: 'light',
+    navigationBarBackgroundColor: '#E9271C',
+    navigationBarTitleText: '知见',
+    navigationBarTextStyle: 'white',
+    backgroundColor: '#FFFFFF'
+  }
+})
