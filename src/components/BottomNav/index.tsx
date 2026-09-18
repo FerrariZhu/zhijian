@@ -4,7 +4,9 @@ import { useState } from 'react'
 import homeGray from '../../assets/icons/home-gray.png'
 import homeRed from '../../assets/icons/home-red.png'
 import messageGray from '../../assets/icons/message-gray.png'
+import messageRed from '../../assets/icons/message-red.png'
 import profileGray from '../../assets/icons/profile-gray.png'
+import profileRed from '../../assets/icons/profile-red.png'
 import './index.scss'
 
 type NavKey = 'home' | 'contact' | 'profile'
@@ -15,8 +17,8 @@ interface BottomNavProps {
 
 const items: Array<{ key: NavKey; label: string; icon: string; activeIcon?: string }> = [
   { key: 'home', label: '首页', icon: homeGray, activeIcon: homeRed },
-  { key: 'contact', label: '联系我们', icon: messageGray },
-  { key: 'profile', label: '我的', icon: profileGray }
+  { key: 'contact', label: '联系我们', icon: messageGray, activeIcon: messageRed },
+  { key: 'profile', label: '我的', icon: profileGray, activeIcon: profileRed }
 ]
 
 export default function BottomNav({ active }: BottomNavProps) {
@@ -35,7 +37,7 @@ export default function BottomNav({ active }: BottomNavProps) {
       return
     }
 
-    Taro.showToast({ title: 'Demo 阶段暂未开放', icon: 'none' })
+    Taro.navigateTo({ url: '/pages/profile/index' })
   }
 
   return (
@@ -78,10 +80,6 @@ export default function BottomNav({ active }: BottomNavProps) {
               <View className='contact-detail'>
                 <Text className='contact-detail__label'>邮箱</Text>
                 <Text className='contact-detail__value' selectable>zhenzhizhuojian84@163.com</Text>
-              </View>
-              <View className='contact-detail'>
-                <Text className='contact-detail__label'>微信</Text>
-                <Text className='contact-detail__value' selectable>stay_together1984</Text>
               </View>
             </View>
 

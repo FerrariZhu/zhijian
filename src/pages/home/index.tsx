@@ -1,7 +1,6 @@
 import { Image, ScrollView, Swiper, SwiperItem, Text, View } from '@tarojs/components'
 import Taro, { usePullDownRefresh } from '@tarojs/taro'
 import { useMemo, useState } from 'react'
-import profileWhite from '../../assets/icons/profile-white.png'
 import searchWhite from '../../assets/icons/search-white.png'
 import BottomNav from '../../components/BottomNav'
 import {
@@ -105,7 +104,6 @@ export default function HomePage() {
             <Image className='search-icon' src={searchWhite} mode='aspectFit' />
             <Text>搜索内容</Text>
           </View>
-          <Image className='profile-icon pressable' src={profileWhite} mode='aspectFit' aria-label='个人中心' />
         </View>
       </View>
 
@@ -182,7 +180,7 @@ export default function HomePage() {
             <Text className='discovery-heading__title'>专题</Text>
           </View>
           <View className='topic-grid'>
-            {topicItems.map((topic) => (
+            {topicItems.slice(0, 6).map((topic) => (
               <View key={topic.tag} className='topic-tile pressable' onClick={() => openTopic(topic.tag)}>
                 <Image className='topic-tile__image' src={topic.image} mode='aspectFill' lazyLoad />
                 <View className='topic-tile__overlay' />

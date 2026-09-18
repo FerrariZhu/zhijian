@@ -4,7 +4,10 @@ export default defineAppConfig({
     'pages/hot/index',
     'pages/topic/index',
     'pages/detail/index',
-    'pages/submit/index'
+    'pages/submit/index',
+    'pages/login/index',
+    'pages/profile/index',
+    'pages/favorites/index'
   ],
   window: {
     backgroundTextStyle: 'light',

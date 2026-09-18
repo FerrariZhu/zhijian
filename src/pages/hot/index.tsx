@@ -1,7 +1,6 @@
 import { Image, Text, View } from '@tarojs/components'
 import Taro from '@tarojs/taro'
 import { useMemo } from 'react'
-import profileWhite from '../../assets/icons/profile-white.png'
 import searchWhite from '../../assets/icons/search-white.png'
 import BottomNav from '../../components/BottomNav'
 import { realtimeHotItems } from '../../data/content'
@@ -28,7 +27,6 @@ export default function HotPage() {
             <Image className='search-icon' src={searchWhite} mode='aspectFit' />
             <Text>搜索内容</Text>
           </View>
-          <Image className='profile-icon pressable' src={profileWhite} mode='aspectFit' aria-label='个人中心' />
         </View>
       </View>
 

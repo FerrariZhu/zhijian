@@ -43,12 +43,6 @@
   flex: none;
 }
 
-.profile-icon {
-  width: 48px;
-  height: 58px;
-  flex: none;
-}
-
 .channel-tabs {
   position: sticky;
   z-index: 20;
@@ -211,7 +205,7 @@
   display: grid;
   padding: 34px 32px 0;
   gap: 20px;
-  grid-template-columns: minmax(0, 1fr) minmax(0, 1.08fr);
+  grid-template-columns: minmax(0, 3fr) minmax(0, 2fr);
 }
 
 .discovery-column {
@@ -324,7 +318,7 @@
   min-height: 0;
   flex: 1;
   gap: 8px;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
+  grid-template-columns: repeat(2, minmax(0, 1fr));
   grid-template-rows: repeat(3, minmax(0, 1fr));
 }
 

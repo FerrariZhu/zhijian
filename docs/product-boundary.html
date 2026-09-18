@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>知见 · 产品边界</title>
+  <style>
+    :root {
+      --brand: #e9271c;
+      --text: #222222;
+      --secondary: #6f6f6f;
+      --tertiary: #a6a6a6;
+      --line: #eeeeee;
+      --paper: #ffffff;
+      --wash: #f7f7f7;
+      --tint: #fdeceb;
+      --reading: "Songti SC", "Noto Serif CJK SC", "Source Han Serif SC", STSong, serif;
+      --ui: "PingFang SC", "Noto Sans CJK SC", "Microsoft YaHei", sans-serif;
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      color: var(--text);
+      background: var(--wash);
+      font-family: var(--ui);
+      font-size: 16px;
+      line-height: 1.7;
+    }
+
+    .sheet {
+      width: min(880px, calc(100% - 32px));
+      margin: 28px auto 64px;
+      background: var(--paper);
+    }
+
+    header {
+      padding: 36px 40px 28px;
+      border-bottom: 1px solid var(--line);
+    }
+
+    .eyebrow {
+      margin: 0 0 14px;
+      color: var(--brand);
+      font-size: 13px;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+    }
+
+    h1 {
+      margin: 0;
+      font-family: var(--reading);
+      font-size: 36px;
+      line-height: 1.35;
+      font-weight: 700;
+    }
+
+    .lede {
+      margin: 16px 0 0;
+      max-width: 68ch;
+      color: var(--secondary);
+      font-family: var(--reading);
+      font-size: 18px;
+      line-height: 1.75;
+    }
+
+    .meta {
+      display: flex;
+      margin-top: 22px;
+      gap: 18px;
+      color: var(--tertiary);
+      font-size: 13px;
+    }
+
+    main { padding: 8px 40px 48px; }
+
+    h2 {
+      margin: 36px 0 8px;
+      padding-left: 12px;
+      border-left: 4px solid var(--brand);
+      font-size: 22px;
+      line-height: 1.4;
+      font-weight: 650;
+    }
+
+    .section-note {
+      margin: 0 0 18px;
+      color: var(--secondary);
+      font-size: 14px;
+    }
+
+    .rule {
+      margin: 18px 0 8px;
+      padding: 18px 20px;
+      background: var(--tint);
+    }
+
+    .rule strong { font-weight: 650; }
+
+    .grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+    }
+
+    .card {
+      padding: 16px 18px 14px;
+      border: 1px solid var(--line);
+    }
+
+    .card h3 {
+      margin: 0 0 8px;
+      font-size: 16px;
+      line-height: 1.4;
+    }
+
+    .card p {
+      margin: 0;
+      color: var(--secondary);
+      font-size: 14px;
+      line-height: 1.65;
+    }
+
+    .tag {
+      display: inline-block;
+      margin-bottom: 8px;
+      color: var(--brand);
+      font-size: 12px;
+      font-weight: 600;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 14px;
+    }
+
+    th, td {
+      padding: 12px 10px;
+      border-bottom: 1px solid var(--line);
+      vertical-align: top;
+      text-align: left;
+    }
+
+    th {
+      color: var(--tertiary);
+      font-size: 12px;
+      font-weight: 600;
+    }
+
+    td:first-child { font-weight: 600; white-space: nowrap; }
+
+    .out {
+      margin: 0;
+      padding: 0;
+      list-style: none;
+    }
+
+    .out li {
+      padding: 12px 0;
+      border-bottom: 1px solid var(--line);
+    }
+
+    .out strong { font-weight: 650; }
+
+    .out span {
+      display: block;
+      margin-top: 2px;
+      color: var(--secondary);
+      font-size: 14px;
+    }
+
+    footer {
+      padding: 0 40px 36px;
+      color: var(--tertiary);
+      font-size: 13px;
+    }
+
+    @media (max-width: 720px) {
+      header, main, footer { padding-left: 20px; padding-right: 20px; }
+      h1 { font-size: 28px; }
+      .grid { grid-template-columns: 1fr; }
+      td:first-child { white-space: normal; }
+    }
+  </style>
+</head>
+<body>
+  <article class="sheet">
+    <header>
+      <p class="eyebrow">知见 · 开工边界</p>
+      <h1>产品现在按什么做，什么先不做</h1>
+      <p class="lede">这一页把开工清单里还开着的产品问题收成边界。依据是当前 Taro Demo 里已经做出来的交互，以及 PRD、补充版已经写过的规则。它不是法律意见。法务没书面签字之前，下面的「执行边界」用来约束研发，不能代替上线批准。</p>
+      <div class="meta">
+        <span>2026-09-18</span>
+        <span>对照 checklist、PRD v1.0、补充版、现有代码</span>
+      </div>
+    </header>
+
+    <main>
+      <h2>先看这一条</h2>
+      <p class="rule"><strong>演示可以继续用现有页面讲产品。</strong>对外上线（小程序提审、H5 公网承接真实用户）在内容定位没有书面结论之前，只做阅读，不开放真实评论、真实投稿和真实账号数据。当前文章样本全是两岸公共议题和评论，清单把这定为最高风险，产品按这个风险执行，不再把「先把评论做出来」当成默认排期。</p>
+
+      <h2>三层边界</h2>
+      <p class="section-note">后面每一条都属于其中一层。层和层不要混用。</p>
+      <div class="grid">
+        <section class="card">
+          <div class="tag">演示</div>
+          <h3>现在浏览器里的页面</h3>
+          <p>静态数据，本地记住登录和收藏。用来对齐阅读、分享、个人中心的样子。不代表正式账号、审核和合规已经完成。</p>
+        </section>
+        <section class="card">
+          <div class="tag">正式一期</div>
+          <h3>可以开始写的产品契约</h3>
+          <p>阅读闭环、登录后的点赞与收藏、投稿须审核后才发布。评论和 AI 挂在门禁后面，不和阅读绑成同一次上线。</p>
+        </section>
+        <section class="card">
+          <div class="tag">签字前照此执行</div>
+          <h3>老板或法务还没书面确认</h3>
+          <p>内容算不算新闻信息、评论先审后发还是先发后审、AI 用哪家。结论没到之前，按更严的那一侧做，不按 Demo 的假交互做。</p>
+        </section>
+        <section class="card">
+          <div class="tag">明确不做</div>
+          <h3>一期不再讨论</h3>
+          <p>视频、搜索、消息中心、个性化推荐、运营后台、积分和付费。入口不留「建设中」。</p>
+        </section>
+      </div>
+
+      <h2>已经定下来的产品规则</h2>
+      <p class="section-note">这些不再作为开放问题。和旧 PRD 冲突的地方，以这里为准。</p>
+
+      <table>
+        <thead>
+          <tr>
+            <th>事项</th>
+            <th>决定</th>
+            <th>边界</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>谁能看</td>
+            <td>不登录可以读首页、详情、公开评论和分享。</td>
+            <td>点赞、收藏、评论、投稿、AI 必须登录。未登录时互动状态是「没有状态」，不是「未点赞」。</td>
+          </tr>
+          <tr>
+            <td>登录</td>
+            <td>演示只做邮箱和密码，不保存密码，不用手机号，不用微信登录。</td>
+            <td>正式 H5 改成手机号验证码，并勾选协议后才能发码。邮箱登录不进入正式版。微信网页授权先不做入口。</td>
+          </tr>
+          <tr>
+            <td>底栏</td>
+            <td>演示是首页、联系我们、我的。联系我们只留邮箱，不开微信。</td>
+            <td>正式一期底栏只留首页、投稿、我的。联系我们弹层不是投诉渠道，正式版不放进底栏。</td>
+          </tr>
+          <tr>
+            <td>个人中心</td>
+            <td>演示已登录后只有账号、我的收藏、退出登录。</td>
+            <td>收藏列表保持现在的样子：一行一篇，左边主副标题，右边头图。正式一期再加「我的投稿」。关注列表不做。</td>
+          </tr>
+          <tr>
+            <td>详情页</td>
+            <td>阅读量在主副标题下面。点赞和计数在吸底条。没有关注，没有朗读，没有更多菜单。</td>
+            <td>作者行只保留名称和时间。关注从一期拿掉，不留按钮。</td>
+          </tr>
+          <tr>
+            <td>分享</td>
+            <td>演示弹出微信、朋友圈、微博，复制链接。</td>
+            <td>演示不接真正的分享 SDK。正式小程序走微信分享；H5 接受固定分享标题，不承诺每篇文章一张分享图。</td>
+          </tr>
+          <tr>
+            <td>首页</td>
+            <td>演示是轮播、实时热点和专题 6:4、专题 6 块、下面是最新内容。</td>
+            <td>专题是首页模块，不是底栏。专题聚合页不是一期必做。正式频道仍是推荐、热点、思想、民生、制度；「推荐」不能当投稿栏目。</td>
+          </tr>
+          <tr>
+            <td>正文</td>
+            <td>正式版只渲染段落、小标题、图片、引用。</td>
+            <td>粗体、列表、链接、视频都不进一期编辑器。Demo 里插在第二段的固定图不能当成正式排版。</td>
+          </tr>
+          <tr>
+            <td>投稿</td>
+            <td>用户不能直接发到信息流。必须审核后由运营发布。</td>
+            <td>没有运营网页后台。审核走受保护的管理接口并留痕，不用临时改数据库顶替。AI 没就绪时，投稿仍可提交，AI 入口隐藏。</td>
+          </tr>
+          <tr>
+            <td>AI</td>
+            <td>默认关闭。打开后也只能生成建议，用户确认才写入正文，不能自动提交。</td>
+            <td>只用过审的境内模型。输入不用于训练。生成内容要能看出来是 AI 写的。备案没完成就不上这个开关。</td>
+          </tr>
+          <tr>
+            <td>投诉</td>
+            <td>评论或投稿一对真实用户开放，举报入口必须同时在。</td>
+            <td>这不是演示里的「联系我们」。没有协议、隐私说明、社区规范和注销入口，不开放写内容。</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <h2>签字没到之前，研发按这个停</h2>
+      <p class="section-note">这四项仍要老板或法务签字。签字前不允许用 Demo 的表现去顶替。</p>
+      <ul class="out">
+        <li>
+          <strong>内容定位</strong>
+          <span>要么办理互联网新闻相关资质再做公共议题和评论，要么把一期收成已授权转载和法务确认过的非受限选题。两条都没选之前，对外只上阅读。</span>
+        </li>
+        <li>
+          <strong>评论怎么出现</strong>
+          <span>默认先审后发。只有定位被书面裁成非新闻信息之后，才允许改成先发后审。内容安全检查和评论同一批上，不能后补。</span>
+        </li>
+        <li>
+          <strong>小程序评论身份</strong>
+          <span>微信登录得到的身份不算实名。若评论要上小程序，首次发言前要有法务认可的手机号授权。拒绝授权的人仍能阅读。</span>
+        </li>
+        <li>
+          <strong>正式环境放在哪里</strong>
+          <span>公网 H5 放在能备案的境内云上。现有海外静态托管只留作开发演示，不放用户数据。</span>
+        </li>
+      </ul>
+
+      <h2>一期明确不做</h2>
+      <ul class="out">
+        <li><strong>搜索、消息、字号、朗读</strong><span>没有页面，也不做点了只弹一句「建设中」的入口。</span></li>
+        <li><strong>关注作者、作者主页、账号合并</strong><span>详情页已经拿掉关注。个人中心不出现关注列表。</span></li>
+        <li><strong>视频、深色模式、个性化推荐、积分和付费</strong><span>设计稿里如果有视频组件，产品范围里仍然没有。</span></li>
+        <li><strong>完整运营后台</strong><span>一期用脚本和管理接口。不为此单开一套后台产品。</span></li>
+        <li><strong>把演示数据当成内容模型</strong><span>详情现在不按链接里的文章编号切换正文。热点编号和文章编号也不对齐。这是实现缺口，不是产品规则。正式阅读闭环必须以文章编号打开对应文章。</span></li>
+      </ul>
+    </main>
+
+    <footer>
+      来源：2026-09 开工清单，PRD v1.0，PRD 补充版，以及当前仓库里的首页、详情、登录、个人中心、收藏和底栏。技术选型（语言、登录票据、直传协议、错误码）按清单里的推荐执行，产品不再逐项重开。
+    </footer>
+  </article>
+</body>
+</html>

@@ -1,27 +1,45 @@
 import { Image, Input, Text, View } from '@tarojs/components'
-import Taro from '@tarojs/taro'
+import Taro, { useDidShow } from '@tarojs/taro'
 import { useMemo, useState } from 'react'
-import audioDark from '../../assets/icons/audio-dark.png'
 import backDark from '../../assets/icons/back-dark.png'
 import commentGray from '../../assets/icons/comment-gray.png'
 import favoriteGray from '../../assets/icons/favorite-gray.png'
 import favoriteRed from '../../assets/icons/favorite-red.png'
 import likeGray from '../../assets/icons/like-gray.png'
 import likeRed from '../../assets/icons/like-red.png'
-import moreDark from '../../assets/icons/more-dark.png'
 import shareGray from '../../assets/icons/share-gray.png'
+import shareMoments from '../../assets/icons/share-moments.png'
+import shareWechat from '../../assets/icons/share-wechat.png'
+import shareWeibo from '../../assets/icons/share-weibo.png'
 import { article, comments, feedItems } from '../../data/content'
+import { isFavorite, toggleFavorite } from '../../favorites'
 import './index.scss'
+
+const shareChannels = [
+  { key: 'wechat', label: '微信', icon: shareWechat },
+  { key: 'moments', label: '朋友圈', icon: shareMoments },
+  { key: 'weibo', label: '微博', icon: shareWeibo }
+]
 
 function formatNumber(value: number) {
   return value.toLocaleString()
 }
 
+function currentShareLink() {
+  if (process.env.TARO_ENV === 'h5') return window.location.href
+  return `/pages/detail/index?id=${article.id}`
+}
+
 export default function DetailPage() {
   const [liked, setLiked] = useState(false)
-  const [saved, setSaved] = useState(false)
+  const [saved, setSaved] = useState(() => isFavorite(article.id))
   const [commentLikes, setCommentLikes] = useState<Record<number, boolean>>({})
+  const [shareOpen, setShareOpen] = useState(false)
   const statusBarHeight = useMemo(() => Taro.getWindowInfo?.().statusBarHeight ?? 20, [])
+
+  useDidShow(() => {
+    setSaved(isFavorite(article.id))
+  })
 
   const toggleCommentLike = (floor: number) => {
     setCommentLikes((current) => ({ ...current, [floor]: !current[floor] }))
@@ -31,31 +49,35 @@ export default function DetailPage() {
     Taro.showToast({ title: `回复 ${name}`, icon: 'none' })
   }
 
+  const shareTo = (label: string) => {
+    setShareOpen(false)
+    Taro.setClipboardData({
+      data: `${article.title} ${currentShareLink()}`,
+      success: () => Taro.showToast({ title: `链接已复制，去${label}分享`, icon: 'none' }),
+      fail: () => Taro.showToast({ title: '复制链接失败，请重试', icon: 'none' })
+    })
+  }
+
   return (
     <View className='safe-page detail-page'>
       <View className='article-nav' style={{ paddingTop: `${statusBarHeight}px` }}>
         <View className='article-nav__bar'>
           <Image className='back-icon pressable' src={backDark} mode='aspectFit' onClick={() => Taro.navigateBack()} aria-label='返回' />
           <Text className='article-nav__brand'>知见</Text>
-          <View className='article-nav__actions'>
-            <Image className='audio-icon pressable' src={audioDark} mode='aspectFit' onClick={() => Taro.showToast({ title: '开始朗读', icon: 'none' })} aria-label='朗读文章' />
-            <Image className='more-icon pressable' src={moreDark} mode='aspectFit' onClick={() => Taro.showActionSheet({ itemList: ['字体设置', '举报内容', '复制链接'] })} aria-label='更多操作' />
-          </View>
+          <View />
         </View>
       </View>
 
       <View className='article'>
         <Text className='article__title'>{article.title}</Text>
         <Text className='article__subtitle'>{article.subtitle}</Text>
+        <Text className='article__reads'>{formatNumber(article.reads)} 阅读</Text>
 
         <View className='article-author'>
           <View className='article-author__avatar'>知</View>
           <View className='article-author__info'>
             <Text className='article-author__name'>{article.author}</Text>
             <Text className='article-author__time'>{article.publishedAt}</Text>
-          </View>
-          <View className='article-author__follow pressable' onClick={() => Taro.showToast({ title: '已关注', icon: 'none' })}>
-            <Text>关注</Text>
           </View>
         </View>
 
@@ -70,18 +92,8 @@ export default function DetailPage() {
           ))}
         </View>
 
-        <Text className='article__hook'>一个“不成熟的开始”，会不会比长期沉默更有价值？</Text>
-
         <View className='article-tags'>
           {article.tags.map((tag) => <Text key={tag} className='article-tag'>{tag}</Text>)}
-        </View>
-
-        <View className='article-metrics'>
-          <View><Text className='article-metrics__label'>阅读</Text><Text className='article-metrics__value'>{formatNumber(article.reads)}</Text></View>
-          <View className={`pressable ${liked ? 'is-liked' : ''}`} onClick={() => setLiked(!liked)}>
-            <Text className='article-metrics__label'>{liked ? '已点赞' : '点赞'}</Text>
-            <Text className='article-metrics__value'>{formatNumber(article.likes + (liked ? 1 : 0))}</Text>
-          </View>
         </View>
       </View>
 
@@ -148,13 +160,45 @@ export default function DetailPage() {
         <View className='dock-action pressable' onClick={() => Taro.pageScrollTo({ selector: '.comments', duration: 240 })}>
           <Image className='dock-action__icon' src={commentGray} mode='aspectFit' /><Text>{comments.length}</Text>
         </View>
-        <View className={`dock-action pressable ${saved ? 'is-active' : ''}`} onClick={() => setSaved(!saved)}>
+        <View
+          className={`dock-action pressable ${liked ? 'is-active' : ''}`}
+          onClick={() => setLiked(!liked)}
+          aria-label={liked ? '取消点赞' : '点赞'}
+        >
+          <Image className='dock-action__icon' src={liked ? likeRed : likeGray} mode='aspectFit' />
+          <Text>{formatNumber(article.likes + (liked ? 1 : 0))}</Text>
+        </View>
+        <View className={`dock-action pressable ${saved ? 'is-active' : ''}`} onClick={() => setSaved(toggleFavorite(article.id))} aria-label={saved ? '取消收藏' : '收藏'}>
           <Image className='dock-action__icon' src={saved ? favoriteRed : favoriteGray} mode='aspectFit' /><Text>{saved ? '已收藏' : '收藏'}</Text>
         </View>
-        <View className='dock-action pressable' onClick={() => Taro.showShareMenu({ withShareTicket: true })}>
+        <View className='dock-action pressable' onClick={() => setShareOpen(true)}>
           <Image className='dock-action__icon' src={shareGray} mode='aspectFit' /><Text>分享</Text>
         </View>
       </View>
+
+      {shareOpen && (
+        <View className='share-sheet' onClick={() => setShareOpen(false)}>
+          <View className='share-panel' onClick={(event) => event.stopPropagation()} role='dialog' aria-label='分享到'>
+            <Text className='share-panel__title'>分享到</Text>
+            <View className='share-channels'>
+              {shareChannels.map((channel) => (
+                <View
+                  key={channel.key}
+                  className='share-channel pressable'
+                  onClick={() => shareTo(channel.label)}
+                  aria-label={`分享到${channel.label}`}
+                >
+                  <Image className='share-channel__icon' src={channel.icon} mode='aspectFit' />
+                  <Text className='share-channel__label'>{channel.label}</Text>
+                </View>
+              ))}
+            </View>
+            <View className='share-panel__cancel pressable' onClick={() => setShareOpen(false)}>
+              <Text>取消</Text>
+            </View>
+          </View>
+        </View>
+      )}
     </View>
   )
 }
