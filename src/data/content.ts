@@ -20,6 +20,30 @@ export interface ContentItem {
   likes: number
 }
 
+export interface RealtimeHotItem {
+  id: string
+  title: string
+  heat: number
+}
+
+export interface TopicItem {
+  tag: string
+  image: string
+  description: string
+  views: number
+}
+
+export interface TopicArticle {
+  id: string
+  title: string
+  subtitle: string
+  source: string
+  publishedAt: string
+  image: string
+  tags: string[]
+  reads: number
+}
+
 export interface CommentItem {
   floor: number
   name: string
@@ -137,6 +161,124 @@ export const feedItems: ContentItem[] = [
     variant: 'side-image',
     reads: 10123,
     likes: 705
+  }
+]
+
+export const realtimeHotItems: RealtimeHotItem[] = [
+  { id: 'hot-01', title: '多地加快推进城市更新行动', heat: 3268000 },
+  { id: 'hot-02', title: '新一轮促消费政策持续落地', heat: 2841000 },
+  { id: 'hot-03', title: '人工智能赋能公共服务', heat: 1976000 },
+  { id: 'hot-04', title: '秋季文旅市场热度攀升', heat: 1264000 },
+  { id: 'hot-05', title: '社区养老服务再升级', heat: 987000 },
+  { id: 'hot-06', title: '教育均衡发展迈上新台阶', heat: 853000 },
+  { id: 'hot-07', title: '县域商业体系加快完善', heat: 796000 },
+  { id: 'hot-08', title: '绿色出行成为城市新风尚', heat: 742000 },
+  { id: 'hot-09', title: '传统文化焕发年轻活力', heat: 689000 },
+  { id: 'hot-10', title: '基层医疗服务能力持续提升', heat: 631000 },
+  { id: 'hot-11', title: '乡村特色产业释放新动能', heat: 587000 },
+  { id: 'hot-12', title: '公共文化空间延伸到社区', heat: 542000 },
+  { id: 'hot-13', title: '数字技术助力中小企业转型', heat: 496000 },
+  { id: 'hot-14', title: '更多口袋公园建在家门口', heat: 451000 },
+  { id: 'hot-15', title: '城市夜间消费场景不断丰富', heat: 407000 },
+  { id: 'hot-16', title: '青年人才服务体系继续完善', heat: 365000 },
+  { id: 'hot-17', title: '老旧小区适老化改造提速', heat: 328000 },
+  { id: 'hot-18', title: '全民健身公共设施持续扩容', heat: 296000 },
+  { id: 'hot-19', title: '公共交通服务覆盖更多乡镇', heat: 267000 },
+  { id: 'hot-20', title: '社区食堂探索可持续运营', heat: 238000 }
+]
+
+export const topicItems: TopicItem[] = [
+  { tag: '城市更新', image: timeWindow, description: '看见城市空间与社区生活的持续变化', views: 326000 },
+  { tag: '人工智能', image: dialogueRoom, description: '关注技术如何改变产业与公共服务', views: 284000 },
+  { tag: '民生保障', image: commonGround, description: '记录与每个人息息相关的生活改善', views: 251000 },
+  { tag: '基层治理', image: roundtable, description: '观察社区协商与公共治理实践', views: 197000 },
+  { tag: '文化传承', image: dialogueRoom, description: '发现传统文化的当代表达', views: 168000 },
+  { tag: '绿色发展', image: timeWindow, description: '追踪低碳转型与生态建设', views: 146000 },
+  { tag: '教育观察', image: roundtable, description: '关注教育公平与人才成长', views: 128000 },
+  { tag: '健康生活', image: commonGround, description: '提供可靠实用的健康资讯', views: 116000 },
+  { tag: '乡村振兴', image: timeWindow, description: '记录乡村产业与生活新图景', views: 98700 }
+]
+
+export const topicArticles: TopicArticle[] = [
+  {
+    id: 'topic-01',
+    title: '老街改造，留住烟火气也更新生活',
+    subtitle: '从基础设施到公共空间，一场温和的城市更新正在发生',
+    source: '城市早报',
+    publishedAt: '2小时前',
+    image: commonGround,
+    tags: ['城市更新', '民生保障'],
+    reads: 18642
+  },
+  {
+    id: 'topic-02',
+    title: '城市更新不只是拆旧建新',
+    subtitle: '公共服务与居民参与，成为衡量更新质量的新尺度',
+    source: '知见观察',
+    publishedAt: '5小时前',
+    image: roundtable,
+    tags: ['城市更新', '基层治理'],
+    reads: 15320
+  },
+  {
+    id: 'topic-03',
+    title: '口袋公园，让绿色走进日常',
+    subtitle: '闲置边角地变身家门口的休闲空间',
+    source: '绿色中国',
+    publishedAt: '昨天',
+    image: timeWindow,
+    tags: ['城市更新', '绿色发展', '健康生活'],
+    reads: 13691
+  },
+  {
+    id: 'topic-04',
+    title: '历史街区如何兼顾保护与发展',
+    subtitle: '传统风貌、商业活力与居民生活需要找到平衡',
+    source: '文脉周刊',
+    publishedAt: '2天前',
+    image: dialogueRoom,
+    tags: ['城市更新', '文化传承'],
+    reads: 12408
+  },
+  {
+    id: 'topic-05',
+    title: '适老化改造进入更多老旧社区',
+    subtitle: '坡道、电梯与休息空间，让出行更有安全感',
+    source: '民生热线',
+    publishedAt: '2天前',
+    image: commonGround,
+    tags: ['城市更新', '民生保障', '健康生活'],
+    reads: 11205
+  },
+  {
+    id: 'topic-06',
+    title: 'AI如何真正走进公共服务',
+    subtitle: '从办事大厅到社区服务，智能技术正在进入真实场景',
+    source: '知见科技',
+    publishedAt: '3天前',
+    image: dialogueRoom,
+    tags: ['人工智能', '基层治理'],
+    reads: 10987
+  },
+  {
+    id: 'topic-07',
+    title: '年轻人正在重新发现传统手艺',
+    subtitle: '非遗直播与现代设计，让古老技艺获得新的观众',
+    source: '文化观察',
+    publishedAt: '3天前',
+    image: roundtable,
+    tags: ['文化传承'],
+    reads: 9680
+  },
+  {
+    id: 'topic-08',
+    title: '乡村特色产业释放新动能',
+    subtitle: '一县一业持续成长，更多年轻人选择返乡创业',
+    source: '乡村纪事',
+    publishedAt: '4天前',
+    image: timeWindow,
+    tags: ['乡村振兴'],
+    reads: 8642
   }
 ]
 

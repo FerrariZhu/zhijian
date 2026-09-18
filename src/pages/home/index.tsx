@@ -4,18 +4,27 @@ import { useMemo, useState } from 'react'
 import profileWhite from '../../assets/icons/profile-white.png'
 import searchWhite from '../../assets/icons/search-white.png'
 import BottomNav from '../../components/BottomNav'
-import { feedItems, hotTopics, type ContentItem } from '../../data/content'
+import {
+  feedItems,
+  hotTopics,
+  realtimeHotItems,
+  topicItems,
+  type ContentItem
+} from '../../data/content'
 import './index.scss'
 
-const channels = ['推荐', '热点', '思想', '民生', '制度']
+const channels = ['推荐', '热点']
 
 function formatCount(value: number) {
   if (value >= 10000) return `${(value / 10000).toFixed(1)}万`
   return value.toLocaleString()
 }
 
+function formatHeat(value: number) {
+  return `${formatCount(value)}热度`
+}
+
 export default function HomePage() {
-  const [channel, setChannel] = useState('推荐')
   const [refreshing, setRefreshing] = useState(false)
   const [hotIndex, setHotIndex] = useState(0)
   const statusBarHeight = useMemo(() => Taro.getWindowInfo?.().statusBarHeight ?? 20, [])
@@ -35,6 +44,14 @@ export default function HomePage() {
 
   const openDetail = (id: string) => {
     Taro.navigateTo({ url: `/pages/detail/index?id=${id}` })
+  }
+
+  const openTopic = (tag: string) => {
+    Taro.navigateTo({ url: `/pages/topic/index?tag=${encodeURIComponent(tag)}` })
+  }
+
+  const openHotChannel = () => {
+    Taro.navigateTo({ url: '/pages/hot/index' })
   }
 
   const renderFeedItem = (item: ContentItem) => {
@@ -97,8 +114,8 @@ export default function HomePage() {
           {channels.map((item) => (
             <View
               key={item}
-              className={`channel-tab pressable ${channel === item ? 'is-active' : ''}`}
-              onClick={() => setChannel(item)}
+              className={`channel-tab pressable ${item === '推荐' ? 'is-active' : ''}`}
+              onClick={() => item === '热点' && openHotChannel()}
             >
               <Text>{item}</Text>
             </View>
@@ -135,6 +152,45 @@ export default function HomePage() {
             </SwiperItem>
           ))}
         </Swiper>
+      </View>
+
+      <View className='home-section home-section--discovery'>
+        <View className='discovery-column realtime-panel'>
+          <View className='discovery-heading'>
+            <Text className='discovery-heading__title'>实时热点</Text>
+            <Text className='discovery-heading__meta'>实时更新</Text>
+          </View>
+          <ScrollView className='realtime-list' scrollY enhanced showScrollbar={false}>
+            {realtimeHotItems.map((item, index) => (
+              <View key={item.id} className='realtime-item pressable' onClick={() => openDetail(item.id)}>
+                <Text className={`realtime-item__rank ${index < 3 ? 'is-top' : ''}`}>{index + 1}</Text>
+                <View className='realtime-item__body'>
+                  <Text className='realtime-item__title'>{item.title}</Text>
+                  <Text className='realtime-item__heat'>{formatHeat(item.heat)}</Text>
+                </View>
+              </View>
+            ))}
+          </ScrollView>
+          <View className='realtime-more pressable' onClick={openHotChannel}>
+            <Text>查看更多热点</Text>
+            <Text aria-hidden>›</Text>
+          </View>
+        </View>
+
+        <View className='discovery-column topic-panel'>
+          <View className='discovery-heading'>
+            <Text className='discovery-heading__title'>专题</Text>
+          </View>
+          <View className='topic-grid'>
+            {topicItems.map((topic) => (
+              <View key={topic.tag} className='topic-tile pressable' onClick={() => openTopic(topic.tag)}>
+                <Image className='topic-tile__image' src={topic.image} mode='aspectFill' lazyLoad />
+                <View className='topic-tile__overlay' />
+                <Text className='topic-tile__label'>#{topic.tag}</Text>
+              </View>
+            ))}
+          </View>
+        </View>
       </View>
 
       <View className='home-section home-section--feed'>

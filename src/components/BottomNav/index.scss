@@ -5,7 +5,7 @@
   bottom: 0;
   left: 0;
   display: grid;
-  grid-template-columns: repeat(5, 1fr);
+  grid-template-columns: repeat(3, 1fr);
   height: calc(108px + env(safe-area-inset-bottom));
   padding: 8px 18px env(safe-area-inset-bottom);
   border-top: 1px solid var(--border);
@@ -33,15 +33,116 @@
   height: 42px;
 }
 
-.bottom-nav__icon--submit {
-  width: 58px;
-  height: 58px;
-  margin-top: -20px;
-}
-
 .bottom-nav__label {
   font-size: 22px;
   line-height: 30px;
+}
+
+.contact-modal {
+  position: fixed;
+  z-index: 100;
+  display: flex;
+  padding: 48px 32px;
+  align-items: center;
+  justify-content: center;
+  background: rgba(0, 0, 0, 0.5);
+  inset: 0;
+}
+
+.contact-card {
+  position: relative;
+  width: 100%;
+  max-width: 720px;
+  max-height: calc(100vh - 96px);
+  padding: 52px 42px 38px;
+  overflow-y: auto;
+  border-radius: 16px;
+  background: var(--surface);
+}
+
+.contact-card__accent {
+  position: absolute;
+  top: 0;
+  left: 42px;
+  width: 72px;
+  height: 7px;
+  border-radius: 0 0 5px 5px;
+  background: var(--brand);
+}
+
+.contact-card__eyebrow {
+  display: block;
+  color: var(--brand);
+  font-size: 22px;
+  line-height: 32px;
+  font-weight: 600;
+  letter-spacing: 1px;
+}
+
+.contact-card__title {
+  display: block;
+  margin-top: 8px;
+  font-family: var(--font-reading);
+  font-size: 43px;
+  line-height: 58px;
+  font-weight: 700;
+}
+
+.contact-card__intro {
+  display: block;
+  margin-top: 24px;
+  color: var(--text-primary);
+  font-size: 27px;
+  line-height: 46px;
+  text-align: justify;
+}
+
+.contact-card__intro--secondary {
+  margin-top: 14px;
+  color: var(--text-secondary);
+}
+
+.contact-card__details {
+  margin-top: 30px;
+  border-top: 1px solid var(--border);
+}
+
+.contact-detail {
+  display: flex;
+  min-height: 86px;
+  padding: 15px 0;
+  align-items: center;
+  border-bottom: 1px solid var(--border);
+}
+
+.contact-detail__label {
+  width: 78px;
+  flex: none;
+  color: var(--text-secondary);
+  font-size: 24px;
+}
+
+.contact-detail__value {
+  min-width: 0;
+  flex: 1;
+  color: var(--text-primary);
+  font-size: 25px;
+  line-height: 36px;
+  font-weight: 500;
+  word-break: break-all;
+}
+
+.contact-card__close {
+  display: flex;
+  height: 78px;
+  margin-top: 32px;
+  align-items: center;
+  justify-content: center;
+  border-radius: 8px;
+  color: #fff;
+  background: var(--brand);
+  font-size: 27px;
+  font-weight: 600;
 }
 
 @media screen and (min-width: 768px) {
